@@ -66,7 +66,7 @@ Don't forget to make your .env file and add it to your gitignore.
 MONGODB_URI = mongodb://localhost/learning-postman
 ```
 
-### Create a schema and some models
+### Create a schema, models, and seeds.
 
 For this lesson we are going to be creating pizzas that we want to manipulate using postman so lets go ahead and make a Schema for our pizzas.
 
@@ -82,10 +82,97 @@ const PizzaSchema = mongoose.Schema({
 var PizzaModel = mongoose.model("Pizza", PizzaSchema);
 
 
-module.exports = PizzaModel;
+module.exports = {Pizza: PizzaModel};
 ```
 
 We will also need to make a model for it
 ```
+var Schema = require('../db/schema');
+var mongoose = require('mongoose');
+
+var Pizza = Schema.Pizza;
+module.exports = Pizza;
+```
+
+Lastly lets make some seeds for our database.
+```
+require("dotenv").config();
+var mongoose = require('mongoose');
+mongoose.connect(process.env.MONGODB_URI);
+
+var Pizza = require('../models/pizza');
+
+mongoose.Promise = global.Promise;
+
+Pizza.remove({}, (err) => console.log(err));
+
+const pizza1 = new Pizza({
+    name: "Pepperoni",
+    toppings: ["Cheese", "Pepperoni"],
+    price: 8.99
+});
+
+const pizza2 = new Pizza({
+    name: "Cheese",
+    toppings: ["Cheese"],
+    price: 7.99
+})
+
+const pizza3 = new Pizza({
+    name: "Bbq Chicken",
+    toppings: ["Cheese", "Bbq Sauce", "Chicken"],
+    price: 9.99
+})
+
+const pizza4 = new Pizza({
+    name: "Meat lovers",
+    toppings: ["Cheese", "Sausage", "Pepperoni", "Ham", "Chicken"],
+    price: 114.99,
+})
+
+const pizza5 = new Pizza({
+    name: "Hawaiian",
+    toppings: ["Cheese", "Ham", "Pineapple"],
+    price: 9.99
+})
+
+pizza1.save();
+pizza2.save();
+pizza3.save();
+pizza4.save();
+pizza5.save();
+
+mongoose.connection.close();
+```
+
+### Start a controller
+
+Lets make a quick controller so that we can start using postman.
+
+```
+const express = require('express');
+const Pizza = require('../models/pizza');
+const router = express.Router()
+
+//get route
+router.get('/', (req, res) => {
+  Pizza.find()
+    .then((pizzas) => {
+      res.json(pizzas)
+    })
+})
+//post route
+
+//put route
+
+//delete route
+
+module.exports = router
+```
+
+Don't forget to include the controller in your server.
+```
+const PizzaController = require('./controllers/pizza');
+app.use('/api/pizza', PizzaController);
 ```
 
