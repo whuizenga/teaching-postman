@@ -2,5 +2,9 @@ require("dotenv").config();
 var mongoose = require('mongoose');
 mongoose.connect(process.env.MONGODB_URI);
 
-//make 5 pizzas
-//1 that is terribly overpriced
+var Pizza = require('../models/pizza');
+
+mongoose.Promise = global.Promise;
+
+Pizza.remove({}, (err) => console.log(err));
+

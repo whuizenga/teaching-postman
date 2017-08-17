@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express = require('express');
+const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const app = express();
 mongoose.Promise = global.Promise;
@@ -14,6 +15,8 @@ connection.on('connected', () => {
 connection.on('error', (err) => {  
   console.log('Mongoose default connection error: ' + err);
 }); 
+
+app.use(bodyParser.json());
 
 app.get('/', (req,res) => {
   res.send('Hello world!')
