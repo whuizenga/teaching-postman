@@ -60,3 +60,8 @@ app.listen(PORT, () => {
 Don't forget to make your .env file and add it to your gitignore.
 
 ```
+MONGODB_URI = mongodb://localhost/learning-postman
+```
+
+### Create a schema and some models
+
