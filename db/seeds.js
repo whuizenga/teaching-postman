@@ -8,3 +8,6 @@ mongoose.Promise = global.Promise;
 
 Pizza.remove({}, (err) => console.log(err));
 
+const pizza1 = new Pizza({
+    name: "Pepporoni"
+})
