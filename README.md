@@ -66,7 +66,7 @@ Don't forget to make your .env file and add it to your gitignore.
 MONGODB_URI = mongodb://localhost/learning-postman
 ```
 
-### Create a schema and some models
+### Create a schema, models, and seeds.
 
 For this lesson we are going to be creating pizzas that we want to manipulate using postman so lets go ahead and make a Schema for our pizzas.
 
@@ -145,4 +145,34 @@ pizza5.save();
 mongoose.connection.close();
 ```
 
+### Start a controller
+
+Lets make a quick controller so that we can start using postman.
+
+```
+const express = require('express');
+const Pizza = require('../models/pizza');
+const router = express.Router()
+
+//get route
+router.get('/', (req, res) => {
+  Pizza.find()
+    .then((pizzas) => {
+      res.json(pizzas)
+    })
+})
+//post route
+
+//put route
+
+//delete route
+
+module.exports = router
+```
+
+Don't forget to include the controller in your server.
+```
+const PizzaController = require('./controllers/pizza');
+app.use('/api/pizza', PizzaController);
+```
 
