@@ -21,7 +21,7 @@ We will build a quick express server to show off how you can use postman to test
 
 ```
 npm init -y
-npm i -S express dotenv mongoose
+npm i -S express dotenv mongoose body-parser
 touch server.js
 ```
 
@@ -32,6 +32,7 @@ Most of this is boiler plate now so we'll just copy this into our server.js
 ```
 require("dotenv").config();
 const express = require('express');
+const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const app = express();
 mongoose.Promise = global.Promise;
@@ -46,6 +47,8 @@ connection.on('connected', () => {
 connection.on('error', (err) => {  
   console.log('Mongoose default connection error: ' + err);
 }); 
+
+app.use(bodyParser.json());
 
 app.get('/', (req,res) => {
   res.send('Hello world!')
@@ -64,4 +67,25 @@ MONGODB_URI = mongodb://localhost/learning-postman
 ```
 
 ### Create a schema and some models
+
+For this lesson we are going to be creating pizzas that we want to manipulate using postman so lets go ahead and make a Schema for our pizzas.
+
+```
+const mongoose = require('mongoose');
+
+const PizzaSchema = mongoose.Schema({
+    name: String,
+    toppings: [Strings],
+    price: Number
+});
+
+var PizzaModel = mongoose.model("Pizza", PizzaSchema);
+
+
+module.exports = PizzaModel;
+```
+
+We will also need to make a model for it
+```
+```
 
