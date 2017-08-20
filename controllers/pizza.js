@@ -12,15 +12,15 @@ router.get('/', (req, res) => {
 //post route
 router.post('/new', (req, res) => {
   const newPizza = new Pizza()
-  newPizza.name = req.body.name
-  newPizza.toppings = req.body.toppings
-  newPizza.price = req.body.price
-  console.log('hello')
+  newPizza.name = req.body.name;
+  newPizza.toppings = req.body.toppings;
+  newPizza.price = req.body.price;
+  console.log(newPizza);
   newPizza.save()
   .then((newPizza)=> {
     res.json(newPizza)
   })
-})
+});
 //put route
 
 //delete route

@@ -176,3 +176,70 @@ const PizzaController = require('./controllers/pizza');
 app.use('/api/pizza', PizzaController);
 ```
 
+### Testing in Postman
+
+Now that we have our first route setup let's go ahead and use postman to test out our route. If everything goes as planned we should see in postman that our server returns a list of all the pizzas.
+
+![This is a return of all the pizzas](images/postman1.png)
+
+That is excellent! We have built a route, and have shown it works in postman, and we haven't even done any client coding.
+
+## Build a POST route to test
+
+Now that we know our server is up and running, and we have a working GET route lets make a POST route and save some information to our database!
+
+To do so we will build out a quit POST route that returns to us that we hit it.
+
+```
+router.post('/new', (req, res) => {
+    res.send("Hit the POST route")
+});
+```
+
+Now when we open Postman and test a post route we should get:
+
+![reply from the POST route](images/postman2.png)
+
+Knowing that we can successfully hit our POST route in postman let's now finish our route to save a new pizza.
+
+```
+router.post('/new', (req, res) => {
+  const newPizza = new Pizza()
+  newPizza.name = req.body.name;
+  newPizza.toppings = req.body.toppings;
+  newPizza.price = req.body.price;
+  console.log(newPizza);
+  newPizza.save()
+  .then((newPizza)=> {
+    res.json(newPizza)
+  })
+});
+```
+
+Hop over to Postman and lets send data to this route like we were handing over form data to our server.
+
+![Why didn't this work](images/postman3.png)
+
+Does that look right? The server sent back our new pizza object but it didn't save any of the form data! Do you know why this is?
+
+It actually is because when we used body-parser in our server we also told it out method of communication was going to be JSON.
+```
+// remember this line?
+app.use(bodyParser.json());
+```
+Axios calls send data in JSON as well, so when we sent over the form body, and it wasn't in JSON, body-parser didn't know how to read it.
+
+Let's try again, but this time we will send raw JSON data over to our server.
+
+![Yay! It works!](images/postman4)
+
+Look at that! It works! If we go back to our GET route we can see that the pizza has been added to our database.
+
+That is how you build out and test routes using Postman.
+
+## You do: Build PUT and DELETE
+
+Now that you've seen Postman in action you should be able to build your own routes for PUT and DELETE. You can grab object ids from the GET route to test in Postman.
+
+Feel free to ask any questions!
+
