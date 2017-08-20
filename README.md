@@ -231,7 +231,7 @@ Axios calls send data in JSON as well, so when we sent over the form body, and i
 
 Let's try again, but this time we will send raw JSON data over to our server.
 
-![Yay! It works!](images/postman4)
+![Yay! It works!](images/postman4.png)
 
 Look at that! It works! If we go back to our GET route we can see that the pizza has been added to our database.
 
