@@ -34,9 +34,11 @@ router.put('/:id/edit', (req, res) => {
     });
 });
 //delete route
-router.delete('/:/id/delete', (req, res) => {
-  const id = req.params.delete;
+router.delete('/:id/delete', (req, res) => {
+console.log("delete route git for req.params.id" + req.params.id)
+  const id = req.params.id;
   Pizza.findByIdAndRemove(id)
-    .then(res.send("Pizza removed"))
-})
+    .then(() => {res.send("Pizza removed")})
+});
+
 module.exports = router
