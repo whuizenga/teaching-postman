@@ -176,7 +176,7 @@ const PizzaController = require('./controllers/pizza');
 app.use('/api/pizza', PizzaController);
 ```
 
-### Testing in Postman
+## Testing in Postman
 
 Now that we have our first route setup let's go ahead and use postman to test out our route. If everything goes as planned we should see in postman that our server returns a list of all the pizzas.
 
@@ -184,7 +184,7 @@ Now that we have our first route setup let's go ahead and use postman to test ou
 
 That is excellent! We have built a route, and have shown it works in postman, and we haven't even done any client coding.
 
-## Build a POST route to test
+### Build a POST route to test
 
 Now that we know our server is up and running, and we have a working GET route lets make a POST route and save some information to our database!
 
